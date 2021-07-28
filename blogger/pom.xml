@@ -3,18 +3,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>murraco</groupId>
-	<artifactId>jwt-auth-service</artifactId>
+	<groupId>Blogger</groupId>
+	<artifactId>user-blog-service</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>spring-boot-jwt</name>
+	<name>Blogger</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<start-class>murraco.JwtAuthServiceApp</start-class>
+		<start-class>blogger.JwtAuthServiceApp</start-class>
 	</properties>
 
 	<parent>
@@ -56,7 +56,12 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
 		<dependency>
 			<!-- Automated JSON API documentation for API's built with Spring -->
