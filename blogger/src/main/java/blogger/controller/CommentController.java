@@ -23,12 +23,12 @@ public class CommentController {
 	@Autowired
 	CommentService commentService;
 	
-	@GetMapping()
-	public List<CommentResponse> getComments(@RequestParam (name="id") String id)
-	{
-		return commentService.getCommentsbyPost(id);
-		
-	}
+//	@GetMapping()
+//	public List<CommentResponse> getComments(@RequestParam (name="id") String id)
+//	{
+//		retu	rn commentService.getCommentsbyPost(id);
+//
+//	}
 	@PostMapping()
 	public ResponseEntity<String> postComment(HttpServletRequest req, @RequestParam (name="comment") String desc,@PathVariable (name="id") Integer id)
 	{

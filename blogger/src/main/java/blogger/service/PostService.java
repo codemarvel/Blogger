@@ -29,14 +29,19 @@ public class PostService {
 	  @Autowired
 	  private PostRepository postRepository;
 	  
-	  public List<Post> getAllPost(HttpServletRequest req)
+	  public List<Post> getAllPosts()
 	  {
-		  
-		  return postRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
+
+		  return postRepository.findAll();
 		 
 	  }
+	public List<Post> getAllPostByUser(HttpServletRequest req)
+	{
+		 return postRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
 
-		
+	}
+
+
 		  public Post getPostById(Integer id) throws CustomException {
 		  
 			  
@@ -49,12 +54,18 @@ public class PostService {
 			  return res.get();
 		  }
 		 
-	  public String createPost(HttpServletRequest req,PostRequest post)
+	  public ResponseEntity<String> createPost(HttpServletRequest req, PostRequest post)
 	  {
 		  Post p = new Post();
 		  p.setDescription(post.getDescription());
+		  p.setTitle(post.getTitle());
+		  if(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req))==null)
+			  return new ResponseEntity<>("Please login to post",HttpStatus.UNAUTHORIZED);
+
 		  p.setUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
-		  return postRepository.save(p).toString();
+			postRepository.save(p);
+
+		  return new ResponseEntity<>("Post Successfully added",HttpStatus.OK);
 		  
 		  
 	  }
@@ -63,7 +74,7 @@ public class PostService {
 		  {
 			  Optional<Post> p = postRepository.findById(id);
 			  
-			  if(p.isEmpty()||p==null)
+			  if(p==null)
 			  {
 				  return new ResponseEntity<>("Post not found", HttpStatus.NOT_FOUND);
 			  }

@@ -9,7 +9,7 @@ import blogger.model.Post;
 
 public interface CommentRepository extends JpaRepository<Comment, String>{
 	
-	List<Comment> findByPostId(String id);
+	//List<Comment> findByPostId(String id);
 	
 	
 }

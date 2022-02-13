@@ -1,30 +1,35 @@
 package blogger.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Comment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String id;
+	private Integer id;
 	
 	private String username;
 	
 	private String value;
-	
-	@Column(name="post_id")
-	private Integer postId;
 
-	public String getId() {
+	@ManyToOne
+	@JoinColumn(name="post_id", nullable=false)
+	private Post post;
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
 	}
 
 	public String getUsername() {
@@ -41,14 +46,6 @@ public class Comment {
 
 	public void setValue(String value) {
 		this.value = value;
-	}
-
-	public Integer getPostId() {
-		return postId;
-	}
-
-	public void setPostId(Integer postId) {
-		this.postId = postId;
 	}
 	
 	

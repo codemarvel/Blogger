@@ -24,7 +24,7 @@ import blogger.model.User;
 import blogger.service.PostService;
 
 @RestController
-@RequestMapping("/users/post")
+@RequestMapping("/posts")
 public class PostController {
 	
 	@Autowired
@@ -32,17 +32,21 @@ public class PostController {
 	
 	@Autowired
 	private PostService postService;
-	
-	
+
 	@GetMapping
-	private List<Post> getAllPostByUser(HttpServletRequest req)
+	private List<Post> getAllPosts()
 	{
-		
-		return postService.getAllPost(req);
+		return postService.getAllPosts();
+	}
+	@GetMapping("/user/{id}")
+	private List<Post> getAllPostByUser(HttpServletRequest req,@PathVariable (name="id")Integer id)
+	{
+		return postService.getAllPostByUser(req);
 	}
 
 	
-	  @GetMapping("/{id}") private Post getPostById(@PathVariable (name="id")Integer id) throws CustomException
+	  @GetMapping("/{id}")
+	  private Post getPostByPostId(@PathVariable (name="id")Integer id) throws CustomException
 	  {
 	  
 	  return postService.getPostById(id);
@@ -50,8 +54,12 @@ public class PostController {
 	  }
 	 
 	
-	  @PostMapping private String createPost(HttpServletRequest req, @RequestBody
-	  PostRequest postRequest) { return postService.createPost(req,postRequest); }
+	  @PostMapping private ResponseEntity<String> createPost(HttpServletRequest req, @RequestBody PostRequest postRequest)
+	  {
+
+		  return postService.createPost(req,postRequest);
+
+	  }
 	 
 
 	

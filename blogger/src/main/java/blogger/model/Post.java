@@ -1,13 +1,9 @@
 package blogger.model;
 
 import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 
@@ -21,7 +17,19 @@ public class Post {
 	private String username;
 	
 	private String description;
-	
+	private String title;
+
+	@OneToMany(mappedBy="post", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	private Set<Comment> comments;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	//private List<Comment> comments;
 	 
 	public String getDescription() {
@@ -45,8 +53,12 @@ public class Post {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-	
-	
-	
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
 }
