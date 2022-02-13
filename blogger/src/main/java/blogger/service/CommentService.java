@@ -47,7 +47,7 @@ public class CommentService {
 			if(C.getUsername()==null)
 				return new ResponseEntity<>("Please login First", HttpStatus.UNAUTHORIZED);
 			Optional<Post> post = postRepository.findById(postId);
-
+			C.setPost(post.get());
 			post.get().getComments().add(C);
 			postRepository.save(post.get());
 
